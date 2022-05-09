@@ -1,1 +1,3 @@
-select sno, s_name where to_city="Calcutta";
+select amount_money from expense where amount_money>10000;
+
+select salesman.sno, s_name from salesman inner join trip on salesman.sno = trip.sno where to_city = 'Calcutta';
