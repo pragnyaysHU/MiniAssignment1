@@ -1,0 +1,44 @@
+CREATE TABLE teamDetails(
+	id SERIAL,
+	team_name VARCHAR(20),
+	captain VARCHAR(50) NOT NULL,
+	owner VARCHAR(50) NOT NULL,
+	homeGround VARCHAR(50) NOT NULL,
+	PRIMARY KEY(team_name)
+);
+
+CREATE TABLE fixtures(
+    match_number INT,
+	home_team VARCHAR(20),
+	away_team VARCHAR(20) NOT NULL,
+	venue VARCHAR(50) NOT NULL,
+	team_won VARCHAR(20) NOT NULL,
+	team_lost VARCHAR(20) NOT NULL,
+	PRIMARY KEY(match_number)
+);
+
+CREATE TABLE points(
+	team_name VARCHAR(20),
+	no_wins INT,
+	no_loss INT,
+	points INT,
+	FOREIGN KEY(team_name) REFERENCES teamDetails(team_name)
+);
+
+COPY teamDetails(team_name, captain, owner, homeGround)
+FROM 'C:\_Docs\teamDetails.csv' 
+DELIMITER ','
+CSV HEADER;
+
+COPY fixtures(match_number, home_team, away_team, venue, team_won, team_lost)
+FROM 'C:\_Docs\fixtures.csv' 
+DELIMITER ','
+CSV HEADER;
+
+SELECT * FROM teamDetails;
+
+SELECT COUNT(*) FROM teamDetails;
+
+SELECT * FROM fixtures where home_team = 'RCB';
+
+SELECT DISTINCT team_lost FROM fixtures where venue = 'Kolkata';
